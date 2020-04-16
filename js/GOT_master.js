@@ -8,6 +8,7 @@ const sigilButtons = document.querySelectorAll(".sigilContainer"),
     video = document.querySelector(".lightBoxVideo"),
     lightBoxClose = lightBox.querySelector(".lightBoxClose"),
     houseName = document.querySelector("h1"),
+    imagesDiv = document.querySelector("#houseImages"),
     houseDescription = document.querySelector(".house-info"),
     buttons = document.querySelectorAll('.button'),
     volume = document.querySelector('input');
@@ -48,15 +49,17 @@ const houseData = [
 
     let newVideoSource = `video/House-${targetSource}.mp4`;
 
-    //debugger;
-    // targets the variable above (lightBox) and adds the new class name (show-lightBox)
-    lightBox.classList.add("show-lightBox");
+    setTimeout(() => {
+      // targets the variable above (lightBox) and adds the new class name (show-lightBox)
+      lightBox.classList.add("show-lightBox");
 
-    //plays video as soon as you open the view port
-    video.src = newVideoSource;
+      //plays video as soon as you open the view port
+      video.src = newVideoSource;
 
-    video.load();
-    video.play();
+      video.load();
+      video.play();
+    }, 550);
+
   }
 
   function hideLightBox() {
@@ -71,14 +74,21 @@ const houseData = [
       // animate the banners across the page using some basic math and class
       let offsetValue = 600;
       let targetValue = offsetValue * this.dataset.offset;
-      debugger;
+
+      imagesDiv.style.marginLeft = "-" + targetValue + "px"
+
+
   }
 
 // add a click event to the sigilButtons --> this changes the text data and video source
 // sigilButtons.forEach(button => button.addEventListener("click", showLightBox))
 
 
-sigilButtons.forEach(button => button.addEventListener("click", showLightBox))
+sigilButtons.forEach(button => {
+  button.addEventListener("click", showLightBox);
+  button.addEventListener("click", animateBanners);
+  }
+)
 
 //add an event handler for the lightbox close sigilButton --> will animate the banners across the top of the page
   lightBoxClose.addEventListener("click", hideLightBox);
